@@ -113,7 +113,7 @@ fi
 
 # install 1password
 if ! [ -x "$(command -v op)" ]; then
-  export OP_VERSION="v0.5.6-003"
+  export OP_VERSION="v0.9.4"
   curl -sS -o 1password.zip https://cache.agilebits.com/dist/1P/op/pkg/${OP_VERSION}/op_linux_amd64_${OP_VERSION}.zip
   unzip 1password.zip op -d /usr/local/bin
   rm -f 1password.zip
@@ -121,7 +121,7 @@ fi
 
 # install terraform
 if ! [ -x "$(command -v terraform)" ]; then
-  export TERRAFORM_VERSION="0.12.9"
+  export TERRAFORM_VERSION="0.12.24"
   wget https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip 
   unzip terraform_${TERRAFORM_VERSION}_linux_amd64.zip 
   chmod +x terraform
@@ -145,21 +145,18 @@ fi
 # install tools
 if ! [ -x "$(command -v jump)" ]; then
   echo " ==> Installing jump .."
-  export JUMP_VERSION="0.23.0"
+  export JUMP_VERSION="0.30.1"
   wget https://github.com/gsamokovarov/jump/releases/download/v${JUMP_VERSION}/jump_${JUMP_VERSION}_amd64.deb
   sudo dpkg -i jump_${JUMP_VERSION}_amd64.deb
   rm -f jump_${JUMP_VERSION}_amd64.deb
 fi
 
-if ! [ -x "$(command -v hub)" ]; then
-  echo " ==> Installing hub .."
-  export HUB_VERSION="2.12.3"
-  wget https://github.com/github/hub/releases/download/v${HUB_VERSION}/hub-linux-amd64-${HUB_VERSION}.tgz
-  tar xf hub-linux-amd64-${HUB_VERSION}.tgz
-  chmod +x hub-linux-amd64-${HUB_VERSION}/bin/hub
-  cp hub-linux-amd64-${HUB_VERSION}/bin/hub /usr/local/bin
-  rm -rf hub-linux-amd64-${HUB_VERSION}
-  rm -f hub-linux-amd64-${HUB_VERSION}.tgz*
+if ! [ -x "$(command -v gh)" ]; then
+  echo " ==> Installing gh  .."
+  export HUB_VERSION="0.6.4"
+  wget https://github.com/cli/cli/releases/download/v${HUB_VERSION}/gh_${HUB_VERSION}_linux_amd64.deb
+  sudo dpkg -i gh_${HUB_VERSION}_linux_amd64.deb
+  rm -f gh_${HUB_VERSION}_linux_amd64.deb
 fi
 
 VIM_PLUG_FILE="${HOME}/.vim/autoload/plug.vim"
