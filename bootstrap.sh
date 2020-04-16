@@ -16,8 +16,8 @@ if [ "${UPGRADE_PACKAGES}" != "none" ]; then
   CLOUD_SDK_SOURCE="/etc/apt/sources.list.d/google-cloud-sdk.list"
   CLOUD_SDK_REPO="cloud-sdk-$(lsb_release -c -s)"
   if [ ! -f "${CLOUD_SDK_SOURCE}" ]; then
-    echo "deb http://packages.cloud.google.com/apt $CLOUD_SDK_REPO main" | tee -a ${CLOUD_SDK_SOURCE}
-    curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
+    echo "deb http://packages.cloud.google.com/apt $CLOUD_SDK_REPO main" | sudo tee -a ${CLOUD_SDK_SOURCE}
+    curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
   fi
 
   sudo apt-get update
