@@ -1,0 +1,11 @@
+[user]
+	email = ahmed.alhulaibi41@gmail.com
+	name = ahmedalhulaibi
+	signingkey = 4E5DDE3CF03270B5
+[url "git@github.com:"]
+[alias]
+	graph = log --decorate --oneline --graph --all
+[url "git@gitlab.com:"]
+	insteadOf = https://gitlab.com/
+[gpg]
+	program = gpg
