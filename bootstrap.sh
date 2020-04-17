@@ -260,16 +260,16 @@ echo "==> Setting shell to zsh..."
 chsh -s /usr/bin/zsh
 
 echo "==> Creating dev directories"
-mkdir -p ~/code/dotfiles
+mkdir -p ~/workenv
 
-if [ ! -d ~/code/dotfiles ]; then
+if [ ! -d ~/workenv/dotfiles ]; then
   echo "==> Setting up dotfiles"
   # the reason we dont't copy the files individually is, to easily push changes
   # if needed
-  cd ~/code
-  git clone --recursive git@github.com:ahmedalhulaibi/workenv.git
+  cd ~/workenv
+  git clone --recursive https://github.com/ahmedalhulaibi/workenv.git . 
 
-  cd ~/code/dotfiles
+  cd ~/workenv/dotfiles
   git remote set-url origin git@github.com:ahmedalhulaibi/workenv.git
 
   ln -sfn $(pwd)/vimrc "${HOME}/.vimrc"
