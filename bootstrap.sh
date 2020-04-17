@@ -256,6 +256,13 @@ if [ ! -d "${HOME}/.oh-my-zsh" ]; then
   sh -c "$(wget -qO- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh) -unattended --skip-chsh"
 fi
 
+if [ -d "${ZSH_CUSTOM}" ]; then
+  if [ ! -d "${ZSH_CUSTOM}/themes/spaceship-prompt" ]; then
+    git clone https://github.com/denysdovhan/spaceship-prompt.git "$ZSH_CUSTOM/themes/spaceship-prompt"
+    ln -s "$ZSH_CUSTOM/themes/spaceship-prompt/spaceship.zsh-theme" "$ZSH_CUSTOM/themes/spaceship.zsh-theme"
+  fi
+fi
+
 if [ ! -d "${HOME}/.tmux/plugins" ]; then
   echo " ==> Installing tmux plugins"
   git clone https://github.com/tmux-plugins/tpm "${HOME}/.tmux/plugins/tpm"
