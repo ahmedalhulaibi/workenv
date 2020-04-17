@@ -267,14 +267,13 @@ if [ ! -d ~/code/dotfiles ]; then
   # the reason we dont't copy the files individually is, to easily push changes
   # if needed
   cd ~/code
-  git clone --recursive https://github.com/ahmedalhulaibi/workenv.git
+  git clone --recursive git@github.com:ahmedalhulaibi/workenv.git
 
   cd ~/code/dotfiles
   git remote set-url origin git@github.com:ahmedalhulaibi/workenv.git
 
   ln -sfn $(pwd)/vimrc "${HOME}/.vimrc"
   ln -sfn $(pwd)/zshrc "${HOME}/.zshrc"
-  ln -sfn $(pwd)/zshrc.pre-oh-my-zsh "${HOME}/.zshrc.pre-oh-my-zsh"
   ln -sfn $(pwd)/tmuxconf "${HOME}/.tmux.conf"
   ln -sfn $(pwd)/tigrc "${HOME}/.tigrc"
   #ln -sfn $(pwd)/git-prompt.sh "${HOME}/.git-prompt.sh"
