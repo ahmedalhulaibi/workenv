@@ -253,7 +253,9 @@ if [ ! -d "${HOME}/.zsh" ]; then
   git clone https://github.com/zsh-users/zsh-autosuggestions "${HOME}/.zsh/zsh-autosuggestions"
 fi
 
-
+if [ ! -d "${HOME}/.oh-my-zsh" ]; then
+  sh -c "$(wget -qO- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh) -unattended --skip-chsh"
+fi
 
 if [ ! -d "${HOME}/.tmux/plugins" ]; then
   echo " ==> Installing tmux plugins"
@@ -264,7 +266,10 @@ if [ ! -d "${HOME}/.tmux/plugins" ]; then
 fi
 
 echo "==> Setting shell to zsh..."
-KEEP_ZSHRC=yes sh -c "$(wget -qO- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+if [ "$(basename $SHELL)" -ne "zsh" ]; then
+  chsh -s $(which zsh)
+fi
+
 
 echo "==> Creating dev directories"
 mkdir -p ~/workenv
