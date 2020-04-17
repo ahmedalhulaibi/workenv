@@ -112,10 +112,9 @@ fi
 # install Go
 if ! [ -x "$(command -v go)" ]; then
   export GO_VERSION="1.13"
-  wget "https://dl.google.com/go/go${GO_VERSION}.linux-amd64.tar.gz" 
-  sudo tar -C /usr/local -xzf "go${GO_VERSION}.linux-amd64.tar.gz" 
-  rm -f "go${GO_VERSION}.linux-amd64.tar.gz"
-  export PATH="/usr/local/go/bin:$PATH"
+  sudo add-apt-repository ppa:longsleep/golang-backports
+  sudo apt update
+  sudo apt install golang-go=${GO_VERSION}
 fi
 
 # install 1password
