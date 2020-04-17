@@ -79,7 +79,6 @@ sudo apt-get install -qq \
   qemu-kvm \
   qrencode \
   quilt \
-  ripgrep \
   shellcheck \
   silversearcher-ag \
   socat \
@@ -100,13 +99,21 @@ sudo apt-get install -qq \
   zsh \
   --no-install-recommends \
 
-rm -rf /var/lib/apt/lists/*
+sudo rm -rf /var/lib/apt/lists/*
+
+# install ripgrep
+if ! [ -x "$(command -v rg)" ]; then
+  export RIPGREP_VERSION="11.0.2"
+  curl -LO https://github.com/BurntSushi/ripgrep/releases/download/${RIPGREP_VERSION}/ripgrep_${RIPGREP_VERSION}_amd64.deb
+  sudo dpkg -i ripgrep_${RIPGREP_VERSION}_amd64.deb
+  rm -f ripgrep_${RIPGREP_VERSION}_amd64.deb
+fi
 
 # install Go
 if ! [ -x "$(command -v go)" ]; then
   export GO_VERSION="1.13"
   wget "https://dl.google.com/go/go${GO_VERSION}.linux-amd64.tar.gz" 
-  tar -C /usr/local -xzf "go${GO_VERSION}.linux-amd64.tar.gz" 
+  sudo tar -C /usr/local -xzf "go${GO_VERSION}.linux-amd64.tar.gz" 
   rm -f "go${GO_VERSION}.linux-amd64.tar.gz"
   export PATH="/usr/local/go/bin:$PATH"
 fi
@@ -115,7 +122,7 @@ fi
 if ! [ -x "$(command -v op)" ]; then
   export OP_VERSION="v0.9.4"
   curl -sS -o 1password.zip https://cache.agilebits.com/dist/1P/op/pkg/${OP_VERSION}/op_linux_amd64_${OP_VERSION}.zip
-  unzip 1password.zip op -d /usr/local/bin
+  sudo unzip 1password.zip op -d /usr/local/bin
   rm -f 1password.zip
 fi
 
@@ -125,7 +132,7 @@ if ! [ -x "$(command -v terraform)" ]; then
   wget https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip 
   unzip terraform_${TERRAFORM_VERSION}_linux_amd64.zip 
   chmod +x terraform
-  mv terraform /usr/local/bin
+  sudo mv terraform /usr/local/bin
   rm -f terraform_${TERRAFORM_VERSION}_linux_amd64.zip
 fi
 
@@ -136,8 +143,8 @@ if ! [ -x "$(command -v protoc)" ]; then
   pushd protobuf_install
   wget https://github.com/protocolbuffers/protobuf/releases/download/v${PROTOBUF_VERSION}/protoc-${PROTOBUF_VERSION}-linux-x86_64.zip
   unzip protoc-${PROTOBUF_VERSION}-linux-x86_64.zip
-  mv bin/protoc /usr/local/bin
-  mv include/* /usr/local/include/
+  sudo mv bin/protoc /usr/local/bin
+  sudo mv include/* /usr/local/include/
   popd
   rm -rf protobuf_install
 fi
@@ -206,7 +213,7 @@ if [ ! -d "$(go env GOPATH)" ]; then
   go get -u -v golang.org/x/tools/cmd/goimports
   go get -u -v golang.org/x/tools/cmd/gorename
   go get -u -v golang.org/x/tools/cmd/guru
-  go get -u -v golang.org/x/tools/cmd/gopls
+  go get -u -v golang.org/x/tools/gopls
   go get -u -v golang.org/x/lint/golint
   go get -u -v github.com/josharian/impl
   go get -u -v honnef.co/go/tools/cmd/keyify
@@ -253,16 +260,16 @@ echo "==> Setting shell to zsh..."
 chsh -s /usr/bin/zsh
 
 echo "==> Creating dev directories"
-mkdir -p ~/code
+mkdir -p ~/code/dotfiles
 
 if [ ! -d ~/code/dotfiles ]; then
   echo "==> Setting up dotfiles"
   # the reason we dont't copy the files individually is, to easily push changes
   # if needed
-  cd "~/code"
+  cd ~/code
   git clone --recursive https://github.com/ahmedalhulaibi/workenv.git
 
-  cd "~/code/dotfiles"
+  cd ~/code/dotfiles
   git remote set-url origin git@github.com:ahmedalhulaibi/workenv.git
 
   ln -sfn $(pwd)/vimrc "${HOME}/.vimrc"
@@ -304,7 +311,7 @@ ln -sfn $(pwd)/zsh_history ~/.zsh_history
 echo "Done!"
 EOF
 
-  mkdir -p /root/secrets
+  mkdir -p ~/secrets
   chmod +x pull-secrets.sh
   mv pull-secrets.sh ~/secrets
 fi
