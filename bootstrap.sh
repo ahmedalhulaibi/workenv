@@ -265,8 +265,8 @@ if [ ! -d "${HOME}/.tmux/plugins" ]; then
   git clone https://github.com/tmux-plugins/tmux-prefix-highlight.git "${HOME}/.tmux/plugins/tmux-prefix-highlight"
 fi
 
-echo "==> Setting shell to zsh..."
-if [ "$(basename $SHELL)" -ne "zsh" ]; then
+if [ "$(basename $SHELL)" != "zsh" ]; then
+  echo "==> Setting shell to zsh..."
   chsh -s $(which zsh)
 fi
 
