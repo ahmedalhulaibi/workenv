@@ -234,8 +234,7 @@ if [ ! -d "$(go env GOPATH)" ]; then
   go get -d -u github.com/golang/protobuf/protoc-gen-go 
   git -C "$(go env GOPATH)"/src/github.com/golang/protobuf checkout $GIT_TAG 
   go install github.com/golang/protobuf/protoc-gen-go
-
-  cp -r $(go env GOPATH)/bin/* /usr/local/bin/
+  export PATH="$PATH:$(go env GOPATH)/bin"
 fi
 
 if [ ! -d "${HOME}/.fzf" ]; then
