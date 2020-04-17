@@ -112,7 +112,7 @@ fi
 # install Go
 mkdir -p ~/apps
 if [ -d ~/apps/go ]; then
-  export PATH="~/apps/go/bin:$PATH"
+  export PATH="${HOME}/apps/go/bin:$PATH"
 fi
 
 if ! [ -x "$(command -v go)" ]; then
@@ -120,7 +120,7 @@ if ! [ -x "$(command -v go)" ]; then
   wget "https://dl.google.com/go/go${GO_VERSION}.linux-amd64.tar.gz" 
   tar -C ~/apps/ -xzf "go${GO_VERSION}.linux-amd64.tar.gz" 
   rm -f "go${GO_VERSION}.linux-amd64.tar.gz"
-  export PATH="~/apps/go/bin:$PATH"
+  export PATH="${HOME}/apps/go/bin:$PATH"
 fi
 
 # install 1password
@@ -256,10 +256,10 @@ if [ ! -d "${HOME}/.oh-my-zsh" ]; then
   sh -c "$(wget -qO- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh) -unattended --skip-chsh"
 fi
 
-if [ -d "${ZSH_CUSTOM}" ]; then
-  if [ ! -d "${ZSH_CUSTOM}/themes/spaceship-prompt" ]; then
-    git clone https://github.com/denysdovhan/spaceship-prompt.git "$ZSH_CUSTOM/themes/spaceship-prompt"
-    ln -s "$ZSH_CUSTOM/themes/spaceship-prompt/spaceship.zsh-theme" "$ZSH_CUSTOM/themes/spaceship.zsh-theme"
+if [ -d "${HOME}/.oh-my-zsh/custom" ]; then
+  if [ ! -d "${HOME}/.oh-my-zsh/custom/themes/spaceship-prompt" ]; then
+    git clone https://github.com/denysdovhan/spaceship-prompt.git "${HOME}/.oh-my-zsh/custom/themes/spaceship-prompt"
+    ln -s "${HOME}/.oh-my-zsh/custom/themes/spaceship-prompt/spaceship.zsh-theme" "${HOME}/.oh-my-zsh/custom/themes/spaceship.zsh-theme"
   fi
 fi
 
@@ -280,7 +280,7 @@ fi
 echo "==> Creating dev directories"
 mkdir -p ~/workenv
 
-if [ ! -d ~/workenv/dotfiles ]; then
+if [ ! -d "${HOME}/workenv/dotfiles" ]; then
   echo "==> Setting up dotfiles"
   # the reason we dont't copy the files individually is, to easily push changes
   # if needed
