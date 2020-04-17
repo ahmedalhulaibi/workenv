@@ -110,12 +110,16 @@ if ! [ -x "$(command -v rg)" ]; then
 fi
 
 # install Go
+if [ -d ~/apps/go ]; then
+  export PATH="~/apps/go/bin:$PATH"
+fi
+
 if ! [ -x "$(command -v go)" ]; then
   export GO_VERSION="1.13"
   wget "https://dl.google.com/go/go${GO_VERSION}.linux-amd64.tar.gz" 
-  sudo tar -C /usr/local -xzf "go${GO_VERSION}.linux-amd64.tar.gz" 
+  tar -C ~/apps/ -xzf "go${GO_VERSION}.linux-amd64.tar.gz" 
   rm -f "go${GO_VERSION}.linux-amd64.tar.gz"
-  export PATH="/usr/local/go/bin:$PATH"
+  export PATH="~/apps/go/bin:$PATH"
 fi
 
 # install 1password
@@ -248,6 +252,8 @@ if [ ! -d "${HOME}/.zsh" ]; then
   git clone https://github.com/zsh-users/zsh-autosuggestions "${HOME}/.zsh/zsh-autosuggestions"
 fi
 
+
+
 if [ ! -d "${HOME}/.tmux/plugins" ]; then
   echo " ==> Installing tmux plugins"
   git clone https://github.com/tmux-plugins/tpm "${HOME}/.tmux/plugins/tpm"
@@ -257,7 +263,7 @@ if [ ! -d "${HOME}/.tmux/plugins" ]; then
 fi
 
 echo "==> Setting shell to zsh..."
-chsh -s /usr/bin/zsh
+KEEP_ZSHRC=yes sh -c "$(wget -qO- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
 echo "==> Creating dev directories"
 mkdir -p ~/workenv
