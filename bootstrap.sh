@@ -110,6 +110,7 @@ if ! [ -x "$(command -v rg)" ]; then
 fi
 
 # install Go
+mkdir -p ~/apps
 if [ -d ~/apps/go ]; then
   export PATH="~/apps/go/bin:$PATH"
 fi
