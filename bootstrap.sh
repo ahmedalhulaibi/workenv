@@ -314,16 +314,19 @@ export OP_SESSION_my=$(op signin https://my.1password.com ahmed.alhulaibi41@gmai
 
 echo "Pulling secrets"
 
-op get document 'github_rsa' > github_rsa
-op get document 'zsh_private' > zsh_private
-op get document 'zsh_history' > zsh_history
+op get document 'github-ssh-priv' > id_rsa
+op get document 'github-ssh-pub' > id_rsa.pub
 
-rm -f ~/.ssh/github_rsa
-ln -sfn $(pwd)/github_rsa ~/.ssh/github_rsa
-chmod 0600 ~/.ssh/github_rsa
+rm -f ~/.ssh/id_rsa
+ln -sfn $(pwd)/id_rsa ~/.ssh/id_rsa
+chmod 0600 ~/.ssh/id_rsa
 
-ln -sfn $(pwd)/zsh_private ~/.zsh_private
-ln -sfn $(pwd)/zsh_history ~/.zsh_history
+rm -f ~/.ssh/id_rsa.pub
+ln -sfn $(pwd)/id_rsa.pub ~/.ssh/id_rsa
+chmod 0600 ~/.ssh/id_rsa
+
+op get document 'github-gpg-key' > github-gpg.key
+gpg --import github-gpg.key
 
 echo "Done!"
 EOF
