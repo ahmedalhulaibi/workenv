@@ -322,8 +322,8 @@ ln -sfn $(pwd)/id_rsa ~/.ssh/id_rsa
 chmod 0600 ~/.ssh/id_rsa
 
 rm -f ~/.ssh/id_rsa.pub
-ln -sfn $(pwd)/id_rsa.pub ~/.ssh/id_rsa
-chmod 0600 ~/.ssh/id_rsa
+ln -sfn $(pwd)/id_rsa.pub ~/.ssh/id_rsa.pub
+chmod 0600 ~/.ssh/id_rsa.pub
 
 op get document 'github-gpg-key' > github-gpg.key
 gpg --import github-gpg.key
