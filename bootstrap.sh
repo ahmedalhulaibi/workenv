@@ -326,7 +326,7 @@ ln -sfn $(pwd)/id_rsa.pub ~/.ssh/id_rsa.pub
 chmod 0600 ~/.ssh/id_rsa.pub
 
 op get document 'github-gpg-key' > github-gpg.key
-gpg --import github-gpg.key
+gpg --import-ownertrust github-gpg.key
 
 echo "Done!"
 EOF
