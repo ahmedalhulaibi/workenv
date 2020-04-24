@@ -2,6 +2,25 @@
 
 set -eu
 
+if [ "$(uname)" == "Darwin" ]; then
+  OS=darwin
+elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
+  OS=linux
+else
+  echo "This installer is only supported on Linux and MacOS"
+  exit 1
+fi
+
+ARCH="$(uname -m)"
+if [ "$ARCH" == "x86_64" ]; then
+  ARCH=x64
+elif [[ "$ARCH" == arm* ]]; then
+  ARCH=arm
+else
+  echo "unsupported arch: $ARCH"
+  exit 1
+fi
+
 export DEBIAN_FRONTEND=noninteractive
 
 UPGRADE_PACKAGES=${1:-none}
@@ -152,6 +171,15 @@ if ! [ -x "$(command -v protoc)" ]; then
   sudo mv include/* /usr/local/include/
   popd
   rm -rf protobuf_install
+fi
+
+# install heroku-cli
+if ! [ -x "$(command -v heroku)" ]; then
+  sudo mkdir -p /usr/local/lib /usr/local/bin
+  pushd /usr/local/lib
+  sudo wget -O- https://cli-assets.heroku.com/heroku-${OS}-${ARCH}.tar.gz | sudo tar xzf -
+  sudo ln -s /usr/local/lib/heroku/bin/heroku /usr/local/bin/heroku
+  popd
 fi
 
 # install tools
