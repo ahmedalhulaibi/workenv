@@ -31,6 +31,8 @@ if [ "${UPGRADE_PACKAGES}" != "none" ]; then
   # Add third party repositories
   sudo add-apt-repository ppa:keithw/mosh-dev -y
   sudo add-apt-repository ppa:jonathonf/vim -y
+  curl https://pkgs.tailscale.com/stable/ubuntu/eoan.gpg | sudo apt-key add -
+  curl https://pkgs.tailscale.com/stable/ubuntu/eoan.list | sudo tee /etc/apt/sources.list.d/tailscale.list
 
   CLOUD_SDK_SOURCE="/etc/apt/sources.list.d/google-cloud-sdk.list"
   CLOUD_SDK_REPO="cloud-sdk-$(lsb_release -c -s)"
@@ -105,6 +107,7 @@ sudo apt-get install -qq \
   sqlite3 \
   stow \
   sudo \
+  tailscale \
   tig \
   tmate \
   tmux \
