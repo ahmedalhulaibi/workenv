@@ -2,7 +2,7 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-  export ZSH="$HOME/.oh-my-zsh"
+export ZSH="$HOME/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -107,3 +107,25 @@ export NVM_DIR="$HOME/.nvm"
 export PATH="$HOME/apps/go/bin:$PATH"
 export PATH="$HOME/go/bin:$PATH"
 export GPG_TTY=$(tty)
+
+# Automatically attach to tmux session main
+if tmux list-sessions -F '#S,#{session_attached}' | grep -q 'main,0'; then
+	tmux new-session -ADs main
+fi
+
+# Custom exit, detach if there is only one tmux pane left, otherwise exit normally
+exit() {
+  if [[ -z $TMUX ]]; then
+    builtin exit
+    return
+  fi
+
+  panes=$(tmux list-panes | wc -l)
+  wins=$(tmux list-windows | wc -l)
+  count=$(($panes + $wins - 1))
+  if [ $count -eq 1 ]; then
+    tmux detach
+  else
+    builtin exit
+  fi
+}
