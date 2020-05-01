@@ -435,6 +435,7 @@ let g:go_gocode_propose_source = 1
 
 let g:go_modifytags_transform = 'camelcase'
 let g:go_fold_enable = []
+let g:go_def_mode = 'gopls'
 
 nmap <C-g> :GoDecls<cr>
 imap <C-g> <esc>:<C-u>GoDecls<cr>
