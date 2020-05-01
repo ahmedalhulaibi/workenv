@@ -129,3 +129,7 @@ exit() {
     builtin exit
   fi
 }
+
+calc() {
+  echo "$@" | bc -l
+}
