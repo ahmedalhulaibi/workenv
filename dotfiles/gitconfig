@@ -10,3 +10,5 @@
 	insteadOf = https://gitlab.com/
 [gpg]
 	program = gpg
+[commit]
+	gpgsign = true
