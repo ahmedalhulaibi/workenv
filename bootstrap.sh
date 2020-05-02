@@ -33,7 +33,7 @@ if [ "${UPGRADE_PACKAGES}" != "none" ]; then
   sudo add-apt-repository ppa:jonathonf/vim -y
   curl https://pkgs.tailscale.com/stable/ubuntu/eoan.gpg | sudo apt-key add -
   curl https://pkgs.tailscale.com/stable/ubuntu/eoan.list | sudo tee /etc/apt/sources.list.d/tailscale.list
-  sudo add-apt-repository ppa:neovim-ppa/stable
+  sudo add-apt-repository ppa:neovim-ppa/stable -y
 
   CLOUD_SDK_SOURCE="/etc/apt/sources.list.d/google-cloud-sdk.list"
   CLOUD_SDK_REPO="cloud-sdk-$(lsb_release -c -s)"
