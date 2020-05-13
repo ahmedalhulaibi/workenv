@@ -34,6 +34,7 @@ if [ "${UPGRADE_PACKAGES}" != "none" ]; then
   curl https://pkgs.tailscale.com/stable/ubuntu/eoan.gpg | sudo apt-key add -
   curl https://pkgs.tailscale.com/stable/ubuntu/eoan.list | sudo tee /etc/apt/sources.list.d/tailscale.list
   sudo add-apt-repository ppa:neovim-ppa/stable -y
+  sudo add-apt-repository ppa:nicolais/termshark -y
 
   CLOUD_SDK_SOURCE="/etc/apt/sources.list.d/google-cloud-sdk.list"
   CLOUD_SDK_REPO="cloud-sdk-$(lsb_release -c -s)"
@@ -110,6 +111,7 @@ sudo apt-get install -qq \
   stow \
   sudo \
   tailscale \
+  termshark \
   tig \
   tmate \
   tmux \
