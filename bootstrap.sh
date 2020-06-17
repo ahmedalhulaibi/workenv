@@ -70,6 +70,7 @@ sudo apt-get install -qq \
   htop \
   hugo \
   ipcalc \
+  inotify-tools \
   jq \
   less \
   libclang-dev \
