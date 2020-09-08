@@ -29,15 +29,15 @@ if [ "${UPGRADE_PACKAGES}" != "none" ]; then
   echo "==> Updating and upgrading packages ..."
 
   # Add third party repositories
-  sudo add-apt-repository ppa:keithw/mosh-dev -y
+  # sudo add-apt-repository ppa:keithw/mosh -y
   sudo add-apt-repository ppa:jonathonf/vim -y
-  curl https://pkgs.tailscale.com/stable/ubuntu/eoan.gpg | sudo apt-key add -
-  curl https://pkgs.tailscale.com/stable/ubuntu/eoan.list | sudo tee /etc/apt/sources.list.d/tailscale.list
+  curl https://pkgs.tailscale.com/stable/ubuntu/$(lsb_release -c -s).gpg | sudo apt-key add -
+  curl https://pkgs.tailscale.com/stable/ubuntu/$(lsb_release -c -s).list | sudo tee /etc/apt/sources.list.d/tailscale.list
   sudo add-apt-repository ppa:neovim-ppa/stable -y
-  sudo add-apt-repository ppa:nicolais/termshark -y
+  # sudo add-apt-repository ppa:nicolais/termshark -y
 
   CLOUD_SDK_SOURCE="/etc/apt/sources.list.d/google-cloud-sdk.list"
-  CLOUD_SDK_REPO="cloud-sdk-$(lsb_release -c -s)"
+  CLOUD_SDK_REPO="cloud-sdk"
   if [ ! -f "${CLOUD_SDK_SOURCE}" ]; then
     echo "deb http://packages.cloud.google.com/apt $CLOUD_SDK_REPO main" | sudo tee -a ${CLOUD_SDK_SOURCE}
     curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
@@ -327,6 +327,8 @@ if [ ! -d "${HOME}/workenv/dotfiles" ]; then
   git remote set-url origin git@github.com:ahmedalhulaibi/workenv.git
 
   ln -sfn $(pwd)/vimrc "${HOME}/.vimrc"
+  mkdir -p ~/.config/nvim
+  ln -sfn $(pwd)/init.vim "${HOME}/.config/nvim/init.vim"
   ln -sfn $(pwd)/zshrc "${HOME}/.zshrc"
   ln -sfn $(pwd)/tmuxconf "${HOME}/.tmux.conf"
   ln -sfn $(pwd)/tigrc "${HOME}/.tigrc"
