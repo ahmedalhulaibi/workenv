@@ -363,8 +363,9 @@ rm -f ~/.ssh/id_rsa.pub
 ln -sfn $(pwd)/id_rsa.pub ~/.ssh/id_rsa.pub
 chmod 0600 ~/.ssh/id_rsa.pub
 
-op get document 'github-gpg-key' > github-gpg.key
-gpg --import-ownertrust github-gpg.key
+op get document 'gpg-backup' > gpg-backup.tar.gz
+mkdir -p ~/.gnupg
+tar -zxvf gpg-backup.tar.gz -C ~/.gnupg
 
 echo "Done!"
 EOF
