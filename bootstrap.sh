@@ -68,6 +68,7 @@ sudo apt-get install -qq \
   google-cloud-sdk \
   google-cloud-sdk-app-engine-go \
   htop \
+  httpie \
   hugo \
   ipcalc \
   inotify-tools \
@@ -92,6 +93,7 @@ sudo apt-get install -qq \
   netcat-openbsd \
   openssh-server \
   pkg-config \
+  postgresql-client \
   protobuf-compiler \
   pwgen \
   python \
