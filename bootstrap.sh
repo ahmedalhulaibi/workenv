@@ -145,7 +145,7 @@ if [ -d ~/apps/go ]; then
 fi
 
 if ! [ -x "$(command -v go)" ]; then
-  export GO_VERSION="1.13"
+  export GO_VERSION="1.15"
   wget "https://dl.google.com/go/go${GO_VERSION}.linux-amd64.tar.gz" 
   tar -C ~/apps/ -xzf "go${GO_VERSION}.linux-amd64.tar.gz" 
   rm -f "go${GO_VERSION}.linux-amd64.tar.gz"
