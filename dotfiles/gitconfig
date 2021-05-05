@@ -9,6 +9,6 @@
 [url "git@gitlab.com:"]
 	insteadOf = https://gitlab.com/
 [gpg]
-	program = gpg
+	program = gpg2
 [commit]
 	gpgsign = true

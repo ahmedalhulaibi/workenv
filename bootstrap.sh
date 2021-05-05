@@ -34,6 +34,7 @@ if [ "${UPGRADE_PACKAGES}" != "none" ]; then
   curl https://pkgs.tailscale.com/stable/ubuntu/$(lsb_release -c -s).gpg | sudo apt-key add -
   curl https://pkgs.tailscale.com/stable/ubuntu/$(lsb_release -c -s).list | sudo tee /etc/apt/sources.list.d/tailscale.list
   sudo add-apt-repository ppa:neovim-ppa/stable -y
+  sudo add-apt-repository ppa:ansible/ansible -y
   # sudo add-apt-repository ppa:nicolais/termshark -y
 
   CLOUD_SDK_SOURCE="/etc/apt/sources.list.d/google-cloud-sdk.list"
@@ -48,6 +49,7 @@ if [ "${UPGRADE_PACKAGES}" != "none" ]; then
 fi
 
 sudo apt-get install -qq \
+  ansible \
   apache2-utils \
   apt-transport-https \
   build-essential \
@@ -145,7 +147,7 @@ if [ -d ~/apps/go ]; then
 fi
 
 if ! [ -x "$(command -v go)" ]; then
-  export GO_VERSION="1.15"
+  export GO_VERSION="1.16"
   wget "https://dl.google.com/go/go${GO_VERSION}.linux-amd64.tar.gz" 
   tar -C ~/apps/ -xzf "go${GO_VERSION}.linux-amd64.tar.gz" 
   rm -f "go${GO_VERSION}.linux-amd64.tar.gz"
@@ -162,7 +164,7 @@ fi
 
 # install terraform
 if ! [ -x "$(command -v terraform)" ]; then
-  export TERRAFORM_VERSION="0.12.24"
+  export TERRAFORM_VERSION="0.14.7"
   wget https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip 
   unzip terraform_${TERRAFORM_VERSION}_linux_amd64.zip 
   chmod +x terraform
@@ -172,7 +174,7 @@ fi
 
 # install protobuf
 if ! [ -x "$(command -v protoc)" ]; then
-  export PROTOBUF_VERSION="3.8.0"
+  export PROTOBUF_VERSION="3.15.7"
   mkdir -p protobuf_install 
   pushd protobuf_install
   wget https://github.com/protocolbuffers/protobuf/releases/download/v${PROTOBUF_VERSION}/protoc-${PROTOBUF_VERSION}-linux-x86_64.zip
@@ -273,7 +275,7 @@ if [ ! -d "$(go env GOPATH)" ]; then
   go get -u -v github.com/aybabtme/humanlog/cmd/...
   go get -u -v github.com/fatih/hclfmt
 
-  export GIT_TAG="v1.2.0" 
+  export GIT_TAG="v1.22.0" 
   go get -d -u github.com/golang/protobuf/protoc-gen-go 
   git -C "$(go env GOPATH)"/src/github.com/golang/protobuf checkout $GIT_TAG 
   go install github.com/golang/protobuf/protoc-gen-go
