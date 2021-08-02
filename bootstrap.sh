@@ -376,6 +376,10 @@ op get document 'gpg-backup' > gpg-backup.tar.gz
 mkdir -p ~/.gnupg
 tar -zxvf gpg-backup.tar.gz -C ~/.gnupg
 
+op get document 'github-gpg-key' > github-gpg-key
+
+gpg --import github-gpg-key
+
 echo "Done!"
 EOF
 
